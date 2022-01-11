@@ -1,5 +1,8 @@
+import java.io.Serializable;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
-public class VideoGames
+public class VideoGames extends UnicastRemoteObject implements VideoGamesInterface, Serializable
 {
     private int id;
     private String game;
@@ -7,6 +10,30 @@ public class VideoGames
     private String developer;
     private String publisher;
     private String platform;
+
+    public VideoGames(VideoGamesInterface inter) throws RemoteException
+    {
+        this.id = inter.getId();
+        this.game = inter.getGame();
+        this.genre = inter.getGenre();
+        this.developer = inter.getDeveloper();
+        this.publisher = inter.getPublisher();
+        this.platform = inter.getPlatform();
+
+    }
+
+    public VideoGames(int id, String game, String genre, String developer, String publisher, String platform) throws RemoteException {
+
+        this.id = id;
+        this.game = game;
+        this.genre = genre;
+        this.developer = developer;
+        this.publisher = publisher;
+        this.platform = platform;
+
+
+    }
+
 
     public int getId() {
         return id;
@@ -55,4 +82,5 @@ public class VideoGames
     public void setPlatform(String platform) {
         this.platform = platform;
     }
+
 }
